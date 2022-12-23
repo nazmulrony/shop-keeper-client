@@ -6,3 +6,7 @@
 body {
     @apply font-roboto;
 }
+
+.btn-brand {
+    @apply bg-gradient-brand px-6 py-2 text-light rounded-lg;
+}
