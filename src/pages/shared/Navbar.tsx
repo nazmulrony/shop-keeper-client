@@ -22,9 +22,9 @@ const Navbar = () => {
                             Home
                         </li>
                     </Link>
-                    <Link to="/add-product">
+                    <Link to="/dashboard">
                         <li className="hover:border-b border-brand duration-150">
-                            Add Product
+                            Dashboard
                         </li>
                     </Link>
 
@@ -68,8 +68,8 @@ const Navbar = () => {
                             <Link to="/">
                                 <li className="py-4 text-sm">Home</li>
                             </Link>
-                            <Link to="/add-product">
-                                <li className="py-4 text-sm">Add Product</li>
+                            <Link to="/dashboard">
+                                <li className="py-4 text-sm">Dashboard</li>
                             </Link>
                             <Link to="/contact">
                                 <li className="py-4 text-sm">Contact</li>
