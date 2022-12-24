@@ -16,7 +16,7 @@ const DashboardLayout = () => {
                         htmlFor="dashboardDrawer"
                         className="btn btn-primary drawer-button lg:hidden btn-xs"
                     >
-                        Open drawer
+                        Open Dashboard
                     </label>
                 </div>
                 <Outlet />

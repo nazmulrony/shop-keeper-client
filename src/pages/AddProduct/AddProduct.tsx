@@ -1,9 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import toast, { Toaster } from 'react-hot-toast';
 
-type TypeProduct = {
+export type TypeProduct = {
+    _id?: string;
     name: string;
-    image: string[];
+    image: string;
     price: number;
     quantity: number;
 };
@@ -15,12 +17,42 @@ const AddProduct = () => {
         formState: { errors },
     } = useForm<TypeProduct>();
 
+    //image host key
+    const imageHostKey = import.meta.env.VITE_imageHostKey;
+
     const handleAddProduct = (data: TypeProduct) => {
-        const name = data.name;
-        const price = data.price;
-        const quantity = data.quantity;
-        const image = data.image[0];
-        console.log(name, price, quantity, image);
+        const image: string = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image);
+        const url: string = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                const imgURL: string = imgData.data.url;
+                const product: TypeProduct = {
+                    name: data.name,
+                    image: imgURL,
+                    price: data.price,
+                    quantity: data.quantity,
+                };
+                fetch('http://localhost:5000/products', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    body: JSON.stringify(product),
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.acknowledged) {
+                            toast.success('Product added successfully');
+                            reset();
+                        }
+                    });
+            });
     };
     return (
         <div>
